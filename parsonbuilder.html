@@ -83,12 +83,12 @@
           if (line.endsWith('!!!')) {
             line = line.slice(0, -3);
           }
-          const clineStart = `<cline${hasDisctractor ? ' correct="yes"' : ''}>${useCDATA ? '<![CDATA[' : ''}`;
+          const clineStart = `<cline>${useCDATA ? '<![CDATA[' : ''}`;
           const clineEnd = useCDATA
             ? ']]></cline>'
             : '</cline>';
           if (hasDisctractor) {
-            output += '        <choice>\n';
+            output += '        <choice correct="yes">\n';
           }
           let space = hasDisctractor ? '          ' : '        ';
           output += `${space}${clineStart}` + line.replace(/\r$/, '') + `${clineEnd}\n`;
