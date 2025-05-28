@@ -43,6 +43,8 @@
   adaptive="yes"
   indentation="hide">
   &lt;statement>
+  <p></p>
+  &lt;/statement>
   </textarea>
 </div>
   <div>
@@ -70,11 +72,11 @@
         ? '<block name="XX" depends="">\n'
         : '<block>\n';
     
-      let output = exCode.trim() + '\n    <blocks>\n';
+      let output = exCode.trim() + '\n  <blocks>\n';
       const groups = input.split(groupLines ? '\n\n' : '\n'); 
       let groupNum = 0;
       for (const group of groups) {
-        output += '      ' + blockStart.replace('XX', `${String.fromCharCode(97 + groupNum++)}`);
+        output += '    ' + blockStart.replace('XX', `${String.fromCharCode(97 + groupNum++)}`);
         const lines = group.split('\n');
         for (let line of lines) {
           const hasDisctractor = distractors === 'all' || (distractors === 'specific' && line.endsWith('!!!'));
