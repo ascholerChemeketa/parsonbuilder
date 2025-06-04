@@ -69,14 +69,20 @@
 
       const exCode = document.getElementById('exCode').value;
       const blockStart = partialOrder
-        ? '<block name="XX" depends="">\n'
-        : '<block>\n';
+        ? '<block order="YY" name="XX" depends="">\n'
+        : '<block order="YY">\n';
     
       let output = exCode.trim() + '\n  <blocks>\n';
       const groups = input.split(groupLines ? '\n\n' : '\n'); 
+
+      // randomized numbers to assign to blocks
+    let orderNumbers = [...Array(groups.length).keys()].map(i => i + 1);
+      shuffleArray(orderNumbers);
+
       let groupNum = 0;
       for (const group of groups) {
-        output += '    ' + blockStart.replace('XX', `${String.fromCharCode(97 + groupNum++)}`);
+        let start = blockStart.replace('YY', orderNumbers[groupNum]);
+        output += '    ' + start.replace('XX', `${String.fromCharCode(97 + groupNum++)}`);
         const lines = group.split('\n');
         for (let line of lines) {
           const hasDisctractor = distractors === 'all' || (distractors === 'specific' && line.endsWith('!!!'));
@@ -104,6 +110,14 @@
       output += '  </blocks>\n';
       output += '</exercise>\n';
       document.getElementById('output').value = output;
+    }
+    function shuffleArray(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
     }
   </script>
 </body>
